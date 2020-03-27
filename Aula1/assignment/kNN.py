@@ -106,11 +106,10 @@ class KNearestNeighbor(object):
             # DICA: Use a funcao numpy.argsort.
 
             # Escreva seu codigo entre estas duas linhas
-            
-            temp = np.argsort(dists[i, :])  # Ve quais sao os indices dos mais proximos (ordena)
-            closest_y.append(temp[0:k+1])   # Coloca na lista os k indices mais proximos do conjunto de treino
-            # closest_y -> armazena os indices dos k vizinhos mais proximos
-
+            temp = np.argsort(dists[i, :])  # Ve quais sao os indices dos mais proximos (temp.shape = (num_test,) )
+            # Insere na lista os k mais proximos
+            for j in range(k):
+                closest_y.append(temp[j]) # Armazena os indices dos k vizinhos mais proximos
             # Escreva seu codigo entre estas duas linhas ^
 
             # TODO:
@@ -120,12 +119,16 @@ class KNearestNeighbor(object):
             # DICA: Pesquise use as funcoes do numpy.
 
             # Escreva seu codigo entre estas duas linhas
-
-            y = np.zeros(10).astype(np.int)
+            
+            # vetor que armazena a frequencia de cada label
+            neighbor_labels_freq = np.zeros(np.unique(self.y_train).shape[0]).astype(np.int)
             for j in closest_y:
-                y[self.y_train[j]] += 1
+                # Incrementa a quantidade de ocorrencias do label do j-esimo vizinho mais proximo
+                neighbor_labels_freq[self.y_train[j]] += 1
+
+            y_pred[i] = np.argmax(neighbor_labels_freq)
 
             # Escreva seu codigo entre estas duas linhas ^
         
-        return y
+        return y_pred
 
