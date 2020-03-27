@@ -92,7 +92,7 @@ class KNearestNeighbor(object):
         num_test = dists.shape[0]
         y_pred = np.zeros(num_test)
 
-        # Loop que itera por cada linha da matriz de distancias
+        # Loop que itera por cada linha da matriz de distancias (dists)
         for i in range(num_test):
 
             # Lista na qual serao armazenados os k vizinhos mais proximos da
@@ -106,8 +106,12 @@ class KNearestNeighbor(object):
             # DICA: Use a funcao numpy.argsort.
 
             # Escreva seu codigo entre estas duas linhas
-            pass
-            # Escreva seu codigo entre estas duas linhas
+            
+            temp = np.argsort(dists[i, :])  # Ve quais sao os indices dos mais proximos (ordena)
+            closest_y.append(temp[0:k+1])   # Coloca na lista os k indices mais proximos do conjunto de treino
+            # closest_y -> armazena os indices dos k vizinhos mais proximos
+
+            # Escreva seu codigo entre estas duas linhas ^
 
             # TODO:
             # Agora que voce possui os k vizinhos, realize uma votacao para
@@ -116,6 +120,12 @@ class KNearestNeighbor(object):
             # DICA: Pesquise use as funcoes do numpy.
 
             # Escreva seu codigo entre estas duas linhas
-            pass
-            # Escreva seu codigo entre estas duas linhas
+
+            y = np.zeros(10).astype(np.int)
+            for j in closest_y:
+                y[self.y_train[j]] += 1
+
+            # Escreva seu codigo entre estas duas linhas ^
+        
+        return y
 
