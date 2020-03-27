@@ -58,7 +58,9 @@ class KNearestNeighbor(object):
         num_train = self.X_train.shape[0]
         dists = np.zeros((num_test, num_train))
 
+        # Itera sobre o conjunto de testes
         for i in range(num_test):
+            # Itera sobre o conjunto de treino
             for j in range(num_train):
 
                 # TODO:
@@ -68,9 +70,10 @@ class KNearestNeighbor(object):
                 # Nao use mais que estes dois loops, nem np.linalg.norm().
 
                 # Escreva seu codigo entre estas duas linhas
-
-                pass
+                dists[i, j] = np.sqrt(np.sum(np.square(X[i, :] - self.X_train[j, :])))
                 # Escreva seu codigo entre estas duas linhas
+
+        return dists
 
     def predict_labels(self, dists, k=1):
         """
